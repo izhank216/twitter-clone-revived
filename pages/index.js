@@ -4,7 +4,6 @@ import { initClipboard } from '../copytext';
 import { animateTweets, gsapFadeIn } from '../animations';
 import { makeDraggable } from '../interact';
 import { gsap } from 'gsap';
-import _app from _app.js
 
 export default function Home() {
   const [tweets, setTweets] = useState([]);
