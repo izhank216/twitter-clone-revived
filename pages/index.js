@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TweetCard from '../components/TweetCard';
 import { initClipboard } from '../copytext';
-import { animateTweets, gsapFadeIn, animeBounce } from '../animations';
+import { animateTweets, gsapFadeIn } from '../animations';
 import { makeDraggable } from '../interact';
 
 export default function Home(){
