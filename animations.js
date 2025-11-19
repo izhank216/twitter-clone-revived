@@ -1,15 +1,35 @@
 import $ from 'jquery';
-import 'jquery-ui-dist/jquery-ui';
 import 'jquery-migrate';
 import { gsap } from 'gsap';
 
 // jQuery animations
-export const fadeInElement = (s, d = 400) => $(s).fadeIn(d);
-export const fadeOutElement = (s, d = 400) => $(s).fadeOut(d);
-export const draggableElement = (s) => $(s).draggable();
-export const animateTweets = (s) => $(s).hide().slideDown(600);
+export const fadeInElement = (selector, duration = 400) => {
+  if (typeof window !== 'undefined') {
+    $(selector).fadeIn(duration);
+  }
+};
+
+export const fadeOutElement = (selector, duration = 400) => {
+  if (typeof window !== 'undefined') {
+    $(selector).fadeOut(duration);
+  }
+};
+
+export const animateTweets = (selector) => {
+  if (typeof window !== 'undefined') {
+    $(selector).hide().slideDown(600);
+  }
+};
 
 // GSAP animations
-export const gsapFadeIn = (s, d = 1) => gsap.from(s, { opacity: 0, duration: d });
-export const gsapSlideUp = (s, y = 50, d = 1) =>
-  gsap.from(s, { y, opacity: 0, duration: d });
+export const gsapFadeIn = (selector, duration = 1) => {
+  if (typeof window !== 'undefined') {
+    gsap.from(selector, { opacity: 0, duration });
+  }
+};
+
+export const gsapSlideUp = (selector, y = 50, duration = 1) => {
+  if (typeof window !== 'undefined') {
+    gsap.from(selector, { y, opacity: 0, duration });
+  }
+};
