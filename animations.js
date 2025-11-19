@@ -1,8 +1,7 @@
 import $ from 'jquery';
-import 'jquery-migrate';
 import { gsap } from 'gsap';
 
-// jQuery animations
+// jQuery animations (safe for SSR)
 export const fadeInElement = (selector, duration = 400) => {
   if (typeof window !== 'undefined') {
     $(selector).fadeIn(duration);
