@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styling for tweets */
+.tweet-card {
+  @apply border p-4 rounded mb-4 bg-white shadow-sm hover:shadow-md transition-shadow;
+}
