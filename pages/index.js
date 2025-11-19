@@ -27,31 +27,43 @@ export default function Home() {
       opacity: 0,
       duration: 0.8,
       ease: 'bounce.out',
-      stagger: 0.1, // optional: makes multiple tweets bounce in sequence
+      stagger: 0.1,
     });
 
     makeDraggable('.tweet-card');
   }, [tweets]);
 
   async function fetchTweets() {
-    const res = await fetch('/api/tweets');
-    const data = await res.json();
-    setTweets(data);
+    try {
+      const res = await fetch('/api/tweets');
+      const data = await res.json();
+      // ensure tweets is always an array
+      setTweets(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error('Error fetching tweets:', err);
+      setTweets([]);
+    }
   }
 
   async function postTweet(e) {
     e.preventDefault();
     if (!username || !content) return;
 
-    const res = await fetch('/api/tweets', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, content }),
-    });
-
-    const newTweet = await res.json();
-    setTweets([newTweet, ...tweets]);
-    setContent('');
+    try {
+      const res = await fetch('/api/tweets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, content }),
+      });
+      const newTweet = await res.json();
+      // prepend only if newTweet has an id
+      if (newTweet && newTweet.id) {
+        setTweets([newTweet, ...tweets]);
+      }
+      setContent('');
+    } catch (err) {
+      console.error('Error posting tweet:', err);
+    }
   }
 
   return (
@@ -78,9 +90,10 @@ export default function Home() {
           Tweet
         </button>
       </form>
-      {tweets.map((tweet) => (
-        <TweetCard key={tweet.id} tweet={tweet} />
-      ))}
+
+      {/* Safe map: only map if tweets is an array */}
+      {Array.isArray(tweets) &&
+        tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)}
 
       {/* Counter.dev analytics script */}
       <script
