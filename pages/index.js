@@ -81,6 +81,13 @@ export default function Home() {
       {tweets.map((tweet) => (
         <TweetCard key={tweet.id} tweet={tweet} />
       ))}
+
+      {/* Counter.dev analytics script */}
+      <script
+        src="https://cdn.counter.dev/script.js"
+        data-id="5ee43f6e-db33-49dd-9b1f-4443ab895294"
+        data-utcoffset="5"
+      ></script>
     </div>
   );
 }
