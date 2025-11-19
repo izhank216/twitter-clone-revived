@@ -2,11 +2,8 @@
 import sqlite3 from 'sqlite3';
 import { open } from 'sqlite';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dbPath = path.join(__dirname, '../../data/tweets.db');
+const dbPath = path.join(process.cwd(), 'data', 'tweets.db');
 
 async function openDb() {
   return open({
@@ -41,7 +38,6 @@ export default async function handler(req, res) {
       return res.status(201).json({ id: result.lastID, username, content });
     }
 
-    // Other HTTP methods not allowed
     res.setHeader('Allow', ['GET', 'POST']);
     return res.status(405).json({ error: `Method ${req.method} not allowed` });
   } catch (err) {
