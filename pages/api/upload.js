@@ -1,5 +1,5 @@
 import nextConnect from 'next-connect';
-import { upload } from '.../data/imagesandvideos';
+import { upload } from '../../data/imagesandvideos';
 
 const apiRoute = nextConnect();
 apiRoute.use(upload.single('file'));
